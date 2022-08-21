@@ -2,13 +2,13 @@ namespace DigitalMakerWorkerApp;
 
 public sealed class WindowsBackgroundService : BackgroundService
 {
-    private readonly JokeService _jokeService;
+    private readonly WebSocketServiceFactory _webSocketServiceFactory;
     private readonly ILogger<WindowsBackgroundService> _logger;
 
     public WindowsBackgroundService(
-        JokeService jokeService,
+        WebSocketServiceFactory webSocketServiceFactory,
         ILogger<WindowsBackgroundService> logger) =>
-        (_jokeService, _logger) = (jokeService, logger);
+        (_webSocketServiceFactory, _logger) = (webSocketServiceFactory, logger);
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -16,8 +16,11 @@ public sealed class WindowsBackgroundService : BackgroundService
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                string joke = _jokeService.GetJoke();
-                _logger.LogWarning("{Joke}", joke);
+                ////string webSocket = _webSocketService.GetJoke();
+                ////_logger.LogWarning("{Joke}", joke);
+                ///
+
+                _logger.LogInformation("Fish pie");
 
                 await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
             }
